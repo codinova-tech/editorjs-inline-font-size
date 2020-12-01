@@ -3,7 +3,7 @@
 
 require('./index.css').toString();
 
-export default class FontSizeInlineTool {
+class FontSizeTool {
   static title = 'Font Size';
   isDropDownOpen = false;
   togglingCallback = null;
@@ -21,7 +21,6 @@ export default class FontSizeInlineTool {
   static get isInline() {
     return true;
   }
-
   commandName = 'fontSize';
 
   CSS = {
@@ -30,16 +29,16 @@ export default class FontSizeInlineTool {
     buttonModifier: 'ce-inline-tool--font',
 
   }
-
-  selectedFontSize = null;
-
   nodes = {
     button: undefined
   }
+  selectedFontSize = null;
 
-  electionList = undefined;
+  selectionList = undefined;
 
   buttonWrapperText = undefined;
+
+  createSvg = undefined;
 
   make(tagName, classNames = null) {
     const el = document.createElement(tagName);
@@ -57,19 +56,8 @@ export default class FontSizeInlineTool {
     this.nodes.button.type = 'button';
     this.nodes.button.setAttribute('id', 'fontSizeBtn');
     this.getFontSizeForButton();
-    this.nodes.button.appendChild(this.createSvg(['icon', 'icon--toggler-down'], '13px', '13px'));
-  }
-  createSvg(classNames, width, height){
-    const el = this.make('svg');
-    if(Array.isArray(classNames)) {
-      el.classList.add(...classNames);
-    }
-    else if(classNames){
-      el.classList.add(classNames);
-    }
-    el.setAttribute('width', width);
-    el.setAttribute('height', height);
-    return el;
+    this.createSvg = this.svg('toggler-down', 13, 13);
+    this.nodes.button.appendChild(this.createSvg);
   }
   getFontSizeForButton() {
     this.buttonWrapperText = this.make('div', 'button-wrapper-text');
@@ -105,7 +93,7 @@ export default class FontSizeInlineTool {
       selectionListWrapper.append(option);
     }
     this.selectionList.append(selectionListWrapper);
-    this.nodes.button(this.selectionList);
+    this.nodes.button.append(this.selectionList);
     this.selectionList.addEventListener('click', this.toggleFontSizeSelector);
 
     setTimeout(() => {
@@ -152,9 +140,9 @@ export default class FontSizeInlineTool {
     } else {
       this.removeFontSizeOptions();
     }
-    // if (typeof togglingCallback === 'function') {
-    //   this.togglingCallback = togglingCallback;
-    // }
+    if (typeof togglingCallback === 'function') {
+      this.togglingCallback = togglingCallback;
+    }
   }
 
   surround(range) {
@@ -195,4 +183,15 @@ export default class FontSizeInlineTool {
     this.toggle();
     this.selectedFontSize = null;
   }
+  svg(name, width = 14, height = 14) {
+    const icon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+
+    icon.classList.add('icon', 'icon--' + name);
+    icon.setAttribute('width', width + 'px');
+    icon.setAttribute('height', height + 'px');
+    icon.innerHTML = `<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#${name}"></use>`;
+
+    return icon;
+  }
 }
+module.exports = FontSizeTool
