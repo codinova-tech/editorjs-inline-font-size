@@ -17,9 +17,11 @@ module.exports = {
         },
         {
           test: /\.css$/,
+          exclude: /node_modules/,
           use: [
             'style-loader',
-            'css-loader'
+            'css-loader',
+            'postcss-loader',
           ]
         },
         {
@@ -29,7 +31,7 @@ module.exports = {
               loader: 'raw-loader',
             }
           ]
-        }
+        },
       ]
     },
     output: {
