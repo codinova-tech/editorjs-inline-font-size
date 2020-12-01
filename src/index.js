@@ -1,5 +1,3 @@
-// import $ from '../dom';
-// import { InlineTool, SanitizerConfig } from '../../../types';
 
 require('./index.css').toString();
 
@@ -183,6 +181,7 @@ class FontSizeTool {
     this.toggle();
     this.selectedFontSize = null;
   }
+
   svg(name, width = 14, height = 14) {
     const icon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
 
