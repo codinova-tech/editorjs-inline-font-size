@@ -123,7 +123,7 @@ class FontSizeTool {
   }
 
   toggleDropDown = ($event) => {
-    if ((($event.target).id === this.fontSizeDropDown || $event.target.parentNode.id === 'fontSizeBtn')) {
+    if ((($event.target).id === this.fontSizeDropDown || $event.target.parentNode.id === 'fontSizeBtn' || $event.target.id === 'fontSizeBtn')) {
       this.toggle((toolbarOpened) => {
         if (toolbarOpened) {
           this.isDropDownOpen = true;
