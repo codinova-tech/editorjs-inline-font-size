@@ -36,7 +36,7 @@ var editor = EditorJS({
   
   tools: {
     ...
-    fontSize: FontSize
+    fontSize: FontSizeTool
   }
   ...
 });
