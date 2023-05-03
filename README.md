@@ -20,7 +20,7 @@ yarn add editorjs-inline-font-size-tool --dev
 Include module in your application
 
 ```javascript
-const FontSize = require('editorjs-inline-font-size-tool');
+const FontSizeTool = require('editorjs-inline-font-size-tool');
 ```
 
 ### Upload to your project's source dir
@@ -36,7 +36,7 @@ var editor = EditorJS({
   
   tools: {
     ...
-    fontSize: FontSize
+    fontSize: FontSizeTool
   }
   ...
 });
